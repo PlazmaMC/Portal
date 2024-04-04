@@ -38,12 +38,12 @@ def version_1(app: FastAPI):
 
         return f"https://img.shields.io/github/actions/workflow/status/PlazmaMC/Plazma/release.yml?style=for-the-badge&label=%20&branch={versions[version]}/{version}"
 
-    def badges():
+    def badge():
         colors = ["gray", "blue", "lime", "aqua", "red", "purple", "yellow", "white"]
 
         @router.get("/badge/{color:int}/{content:str}", response_class = RedirectResponse, status_code = 308)
         @router.get("/badge/{color:int}/{name:str}/{content:str}", response_class = RedirectResponse, status_code = 308)
-        async def badges(color: int, content: str, name: str = ""):
+        async def badge(color: int, content: str, name: str = ""):
             if len(colors) < color:
                 return { 404: {"description": "Invalid color code"} }
 
