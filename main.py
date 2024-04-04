@@ -1,5 +1,5 @@
 from fastapi import *
-from api import *
+from src import *
 
 app = FastAPI(
     docs_url = "/",

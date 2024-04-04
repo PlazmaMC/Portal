@@ -1,6 +1,6 @@
 from fastapi import *
 from fastapi.responses import RedirectResponse
-from versions import *
+from .versions import *
 
 def version_1(app: FastAPI):
 
