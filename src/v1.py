@@ -41,16 +41,17 @@ def version_1(app: FastAPI):
     def badges():
         colors = ["gray", "blue", "lime", "aqua", "red", "purple", "yellow", "white"]
 
-        @router.get("/badges/{color:int}/{content:str}", response_class = RedirectResponse, status_code = 308)
-        async def badges(color: int, content: str):
+        @router.get("/badge/{color:int}/{content:str}", response_class = RedirectResponse, status_code = 308)
+        @router.get("/badge/{color:int}/{name:str}/{content:str}", response_class = RedirectResponse, status_code = 308)
+        async def badges(color: int, content: str, name: str = ""):
             if len(colors) < color:
                 return { 404: {"description": "Invalid color code"} }
 
-            return f"https://img.shields.io/badge/{content}-{colors[color]}?style=for-the-badge"
+            return f"https://img.shields.io/badge/{name}-{content}-{colors[color]}?style=for-the-badge"
     badges()
 
-    @router.get("/badge/percentage/{percent:int}", response_class = RedirectResponse, status_code = 308)
-    async def percentage(percent: int):
+    @router.get("/badge/percent/{percent:int}", response_class = RedirectResponse, status_code = 308)
+    async def percent(percent: int):
         color = "gray"
         if percent == 100:
             color = "success"
@@ -75,7 +76,6 @@ def version_1(app: FastAPI):
 
         @router.get("/download", response_class = RedirectResponse, status_code = 308)
         @router.get("/download/{version:str}", response_class = RedirectResponse, status_code = 308)
-        @router.get("/download/{version:str}/{target:int}", response_class = RedirectResponse, status_code = 308)
         async def download(version: str = head, target: int = 0):
             if target == None:
                 target = 0
