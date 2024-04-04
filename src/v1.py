@@ -48,7 +48,7 @@ def version_1(app: FastAPI):
                 return { 404: {"description": "Invalid color code"} }
 
             return f"https://img.shields.io/badge/{name}-{content}-{colors[color]}?style=for-the-badge"
-    badges()
+    badge()
 
     @router.get("/badge/percent/{percent:int}", response_class = RedirectResponse, status_code = 308)
     async def percent(percent: int):
