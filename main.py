@@ -11,6 +11,9 @@ app = FastAPI(
 @app.get("/{version:str}", status_code = 308)
 @app.get("/{branch:str}/{target:str}", status_code = 308)
 async def main(version: str = None, branch: str = None, target: str = None):
+    if (version == None and branch == None and target == None):
+        return f"https://api.plazmamc.org/v1/git"
+
     if (branch != None and target != None):
         return f"https://api.plazmamc.org/v1/git/{branch}/{target}"
 
