@@ -11,8 +11,8 @@ app = FastAPI(
 async def doc():
     return f"https://api.plazmamc.org/"
 
-@app.get("/{color:int}/{content:str}", status_code = 308)
-@app.get("/{color:int}/{name:str}/{content:str}", status_code = 308)
+@app.get("/c/{color:int}/{content:str}", status_code = 308)
+@app.get("/c/{color:int}/{name:str}/{content:str}", status_code = 308)
 async def main(color: int, content: str, name: str = ""):
     return f"https://api.plazmamc.org/v1/badge/{color}/{name}/{content}"
 
