@@ -21,5 +21,5 @@ async def percent(percent: int):
     return f"https://api.plazmamc.org/v1/badge/percent/{percent}"
 
 @app.get("/internal/{content:str}", status_code = 308)
-async def internal(content: int):
+async def internal(content: str):
     return f"https://api.plazmamc.org/internal/badges/{content}"
