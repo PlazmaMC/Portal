@@ -11,6 +11,6 @@ app = FastAPI(
 @app.get("/{version:str}", status_code = 308)
 async def main(version: str = None, redirect: bool = False):
     if redirect:
-        return f"https://api.plazmamc.org/v1/builds/{version}"
+        return f"https://api.plazmamc.org/v1/git/{version}"
 
     return f"https://api.plazmamc.org/v1/build/{version}"
