@@ -31,7 +31,7 @@ def version_1(app: FastAPI):
         return RedirectResponse(f"https://img.shields.io/github/actions/workflow/status/PlazmaMC/Plazma/release.yml?style=for-the-badge&label=%20&branch={versions[version]}/{version}")
 
     def badge():
-        colors = ["gray", "blue", "lime", "aqua", "red", "purple", "yellow", "white"]
+        colors = ["gray", "blue", "success", "aqua", "red", "purple", "yellow", "white"]
 
         @router.get("/badge/{color:int}/{content:str}", status_code = 308)
         @router.get("/badge/{color:int}/{name:str}/{content:str}", status_code = 308)
