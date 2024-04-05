@@ -10,47 +10,47 @@ def version_1(app: FastAPI):
         responses = { 404: {"description": "Not found"} }
     )
 
-    @router.get("/git", response_class = RedirectResponse, status_code = 308)
-    @router.get("/git/{version:str}", response_class = RedirectResponse, status_code = 308)
-    @router.get("/git/{branch:str}/{target:str}", response_class = RedirectResponse, status_code = 308)
+    @router.get("/git", status_code = 308)
+    @router.get("/git/{version:str}", status_code = 308)
+    @router.get("/git/{branch:str}/{target:str}", status_code = 308)
     async def git(version: str = head, branch: str = None, target: str = None):
         if version not in versions:
             return { 404: {"description": "Invalid version"} }
 
         if (branch != None and target != None):
-            return f"https://github.com/PlazmaMC/Plazma/tree/{branch}/{target}"
+            return RedirectResponse(f"https://github.com/PlazmaMC/Plazma/tree/{branch}/{target}")
 
-        return f"https://github.com/PlazmaMC/Plazma/tree/{versions[version]}/{version}"
+        return RedirectResponse(f"https://github.com/PlazmaMC/Plazma/tree/{versions[version]}/{version}")
 
-    @router.get("/build", response_class = RedirectResponse, status_code = 308)
-    @router.get("/build/{version:str}", response_class = RedirectResponse, status_code = 308)
+    @router.get("/build", status_code = 308)
+    @router.get("/build/{version:str}", status_code = 308)
     async def build(version: str = head):
         if version not in versions:
             return { 404: {"description": "Invalid version"} }
 
-        return f"https://img.shields.io/github/actions/workflow/status/PlazmaMC/Plazma/release.yml?style=for-the-badge&#x26;label=%20&#x26;branch={versions[version]}/{version}"
+        return RedirectResponse(f"https://img.shields.io/github/actions/workflow/status/PlazmaMC/Plazma/release.yml?style=for-the-badge&#x26;label=%20&#x26;branch={versions[version]}/{version}")
 
-    @router.get("/builds", response_class = RedirectResponse, status_code = 308)
-    @router.get("/builds/{version:str}", response_class = RedirectResponse, status_code = 308)
+    @router.get("/builds", status_code = 308)
+    @router.get("/builds/{version:str}", status_code = 308)
     async def builds(version: str = head):
         if version not in versions:
             return { 404: {"description": "Invalid version"} }
 
-        return f"https://img.shields.io/github/actions/workflow/status/PlazmaMC/Plazma/release.yml?style=for-the-badge&label=%20&branch={versions[version]}/{version}"
+        return RedirectResponse(f"https://img.shields.io/github/actions/workflow/status/PlazmaMC/Plazma/release.yml?style=for-the-badge&label=%20&branch={versions[version]}/{version}")
 
     def badge():
         colors = ["gray", "blue", "lime", "aqua", "red", "purple", "yellow", "white"]
 
-        @router.get("/badge/{color:int}/{content:str}", response_class = RedirectResponse, status_code = 308)
-        @router.get("/badge/{color:int}/{name:str}/{content:str}", response_class = RedirectResponse, status_code = 308)
+        @router.get("/badge/{color:int}/{content:str}", status_code = 308)
+        @router.get("/badge/{color:int}/{name:str}/{content:str}", status_code = 308)
         async def badge(color: int, content: str, name: str = ""):
             if len(colors) < color:
                 return { 404: {"description": "Invalid color code"} }
 
-            return f"https://img.shields.io/badge/{name}-{content}-{colors[color]}?style=for-the-badge"
+            return RedirectResponse(f"https://img.shields.io/badge/{name}-{content}-{colors[color]}?style=for-the-badge")
     badge()
 
-    @router.get("/badge/percent/{percent:int}", response_class = RedirectResponse, status_code = 308)
+    @router.get("/badge/percent/{percent:int}", status_code = 308)
     async def percent(percent: int):
         color = "gray"
         if percent == 100:
@@ -64,7 +64,7 @@ def version_1(app: FastAPI):
         elif percent >= 0:
             color = "maroon"
 
-        return f"https://img.shields.io/badge/-{percent}%25-{color}?style=for-the-badge"
+        return RedirectResponse(f"https://img.shields.io/badge/-{percent}%25-{color}?style=for-the-badge")
 
     def download():
         types = [
@@ -74,8 +74,8 @@ def version_1(app: FastAPI):
             ["bundler"  , "mojmap"]   # 11
         ]
 
-        @router.get("/download", response_class = RedirectResponse, status_code = 308)
-        @router.get("/download/{version:str}", response_class = RedirectResponse, status_code = 308)
+        @router.get("/download", status_code = 308)
+        @router.get("/download/{version:str}", status_code = 308)
         async def download(version: str = head, target: int = 0):
             if target == None:
                 target = 0
@@ -83,7 +83,7 @@ def version_1(app: FastAPI):
             if len(types) < target:
                 return { 404: {"description": "Invalid target type"} }
 
-            return f"https://github.com/PlazmaMC/Plazma/releases/download/build/{version}/latest/plazma-{types[target][0]}-{version}-R0.1-SNAPSHOT-{types[target][1]}.jar"
+            return RedirectResponse(f"https://github.com/PlazmaMC/Plazma/releases/download/build/{version}/latest/plazma-{types[target][0]}-{version}-R0.1-SNAPSHOT-{types[target][1]}.jar")
     download()
 
     app.include_router(router)
