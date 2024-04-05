@@ -28,14 +28,6 @@ def version_1(app: FastAPI):
         if version not in versions:
             return { 404: {"description": "Invalid version"} }
 
-        return RedirectResponse(f"https://img.shields.io/github/actions/workflow/status/PlazmaMC/Plazma/release.yml?style=for-the-badge&#x26;label=%20&#x26;branch={versions[version]}/{version}")
-
-    @router.get("/builds", status_code = 308)
-    @router.get("/builds/{version:str}", status_code = 308)
-    async def builds(version: str = head):
-        if version not in versions:
-            return { 404: {"description": "Invalid version"} }
-
         return RedirectResponse(f"https://img.shields.io/github/actions/workflow/status/PlazmaMC/Plazma/release.yml?style=for-the-badge&label=%20&branch={versions[version]}/{version}")
 
     def badge():
