@@ -8,6 +8,7 @@ app = FastAPI(
 
 @app.get("/")
 @app.get("/{version:str}")
+@app.get("/{version:str}/{target:int}")
 async def main(version: str = "", target: int = 0):
     if version == "":
         return "https://api.plazmamc.org/v1/download"
