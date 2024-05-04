@@ -1,5 +1,6 @@
 global versions
 versions = {
+    "1.20.6": "dev",
     "1.20.4": "ver",
     "1.20.2": "ver",
     "1.20.1": "ver",
