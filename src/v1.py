@@ -60,10 +60,10 @@ def version_1(app: FastAPI):
 
     def download():
         types = [
-            ["paperclip", "reobf" ],  # 00
-            ["paperclip", "mojmap"],  # 01
-            ["bundler"  , "reobf" ],  # 10
-            ["bundler"  , "mojmap"]   # 11
+            ["paperclip", "mojmap" ],  # 00
+            ["paperclip", "reobf"],  # 01
+            ["bundler"  , "mojmap" ],  # 10
+            ["bundler"  , "reobf"]   # 11
         ]
 
         @router.get("/download", status_code = 308)
