@@ -35,11 +35,12 @@ def version_1(app: FastAPI):
 
         @router.get("/badge/{color:int}/{content:str}", status_code = 308)
         @router.get("/badge/{color:int}/{name:str}/{content:str}", status_code = 308)
-        async def badge(color: int, content: str, name: str = ""):
+        @router.get("/badge/{color:int}/{name:str}/{content:str}/{logo:str}", status_code = 308)
+        async def badge(color: int, content: str, name: str = "", logo: str = ""):
             if len(colors) < color:
                 return { 404: {"description": "Invalid color code"} }
 
-            return RedirectResponse(f"https://img.shields.io/badge/{name}-{content}-{colors[color]}?style=for-the-badge")
+            return RedirectResponse(f"https://img.shields.io/badge/{name}-{content}-{colors[color]}?style=for-the-badge&logo={logo}")
     badge()
 
     @router.get("/badge/percent/{percent:int}", status_code = 308)
