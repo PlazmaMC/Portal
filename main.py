@@ -13,8 +13,9 @@ async def doc():
 
 @app.get("/{color:int}/{content:str}", status_code = 308)
 @app.get("/{color:int}/{name:str}/{content:str}", status_code = 308)
-async def main(color: int, content: str, name: str = ""):
-    return f"https://api.plazmamc.org/v1/badge/{color}/{name}/{content}"
+@app.get("/{color:int}/{name:str}/{content:str}/{icon:str}", status_code = 308)
+async def main(color: int, content: str, name: str = "", icon: str = ""):
+    return f"https://api.plazmamc.org/v1/badge/{color}/{name}/{content}/{icon}"
 
 @app.get("/percent/{percent:int}", status_code = 308)
 async def percent(percent: int):
