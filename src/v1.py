@@ -40,7 +40,7 @@ def version_1(app: FastAPI):
             if len(colors) < color:
                 return { 404: {"description": "Invalid color code"} }
 
-            return RedirectResponse(f"https://img.shields.io/badge/{name}-{content}-{colors[color]}?style=for-the-badge&logo={logo}")
+            return RedirectResponse(f"https://img.shields.io/badge/{name}-{content}-{colors[color]}?style=for-the-badge&logo={logo}&logoColor=white")
     badge()
 
     @router.get("/badge/percent/{percent:int}", status_code = 308)
